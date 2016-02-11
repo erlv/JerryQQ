@@ -1,6 +1,6 @@
 all:
-	gcc client.c -o client.exe -Wall -Werror
-	gcc server.c -o server.exe -Wall -Werror
+	gcc client.c -o client.exe -Wall -Werror -O0 -g3
+	gcc server.c -o server.exe -Wall -Werror -O0 -g3
 
 run:
 	echo "Run the server.exe first, and then run client.exe in another terminal"

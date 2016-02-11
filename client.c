@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
   struct sockaddr_in serv_addr;
   struct hostent *server;
 
-  if (argc < 4)
+  if (argc < 3)
   {
     printf("Please provide correct arguments");
     exit(1);
@@ -47,10 +47,16 @@ int main(int argc, char *argv[])
     printf("Error with connection");
     exit(1);
   }
-  printf("Message typed in is: %s \n", argv[3]);
-  write(sockfd, argv[3], sizeof(buffer));
-  read(sockfd, buffer, sizeof(buffer));
-  printf("Recieved from server: %s\n", buffer);
+  int msg_cnt=0;
+  while (1) {
+	msg_cnt++;
+	printf("Type in msg %d:\n", msg_cnt);
+	scanf("%s", buffer);
+	printf("Message typed in is: %s \n", buffer);
+	write(sockfd, buffer, sizeof(buffer));
+	read(sockfd, buffer, sizeof(buffer));
+	printf(">>>>>> SERVER: %s\n", buffer);
+  }
   close(sockfd);
   return 0;
 }

@@ -51,14 +51,21 @@ int main()
       printf("Error accepting connection");
       exit(1);
     }
-
-    read(newsockfd, incoming_message, sizeof(incoming_message));
-    sprintf(temp_string, "Hello %s, you said %s, haha", inet_ntoa(cli_addr.sin_addr), incoming_message);
-    if (write(newsockfd, temp_string, sizeof(incoming_message)) < 0)
-    {
-      printf("Error writing out");
-      exit(1);
-    }
+	
+	printf("Client connect, waiting for msg\n");
+	int msg_cnt = 0 ;
+	while(1) {
+		msg_cnt++;
+		read(newsockfd, incoming_message, sizeof(incoming_message));
+		printf(">>>>>> CLIENT: %s\n", incoming_message);
+		printf("Type in msg %d:\n", msg_cnt);
+		scanf("%s", temp_string);
+		if (write(newsockfd, temp_string, sizeof(incoming_message)) < 0)
+		{
+			printf("Error writing out");
+			exit(1);
+		}
+	}
     close (newsockfd);
   }
   close(sockfd);
